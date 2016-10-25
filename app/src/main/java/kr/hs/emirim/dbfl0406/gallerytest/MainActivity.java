@@ -3,6 +3,7 @@ package kr.hs.emirim.dbfl0406.gallerytest;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -55,8 +56,16 @@ public class MainActivity extends AppCompatActivity {
             ImageView imgV=new ImageView(context);
             imgV.setLayoutParams(new Gallery.LayoutParams(150,150));
             imgV.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imgV.setPadding(5,5,5,5);
             imgV.setImageResource(ImageIDs[position]);
+            final int pos=position; //이렇게 해주지 않으면 온터치 안에서 못쓴다 왜징 익명클래스라 그렇다고??
+            imgV.setOnTouchListener(new View.OnTouchListener(){
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    imgMain.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    imgMain.setImageResource(ImageIDs[pos]);
+                    return false;
+                }
+            });
             return imgV;
         }
     }
